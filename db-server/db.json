@@ -1,0 +1,22 @@
+{
+  "posts": [{ "id": 1, "title": "json-server", "author": "typicode" }],
+  "comments": [{ "id": 1, "body": "some comment", "postId": 1 }],
+  "profile": { "name": "typicode" },
+  "employees": [
+    {
+      "username": "yash",
+      "password": "12",
+      "expiry_date": "31-12-2039",
+      "hobby": "chess,cricket",
+      "join_date": "01-11-2012",
+      "age": 20
+    },
+    {
+      "username": "admin",
+      "password": "222",
+      "expiry_date": "01-12-2029",
+      "join_date": "01-11-2010"
+    },
+    { "username": "foo", "password": "foo", "expiry_date": "12-03-2023" }
+  ]
+}
