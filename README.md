@@ -32,3 +32,9 @@ Your app is ready to be deployed!
 ## Deployment
 
 You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+
+## Data Visualization
+
+First Started how SVG works to make circle line rectangles
+And then tried to create some visualization using D3 library
+[Data Visualization youtube video](https://www.youtube.com/watch?v=xkBheRZTkaw&ab_channel=freeCodeCamp.org)
