@@ -5,23 +5,24 @@ import Home from "./home";
 import { Router, Routes, Route, A } from "@solidjs/router";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Grid from "./grid";
+import UserContextProvider, { useUserContext } from "./context/UserContext";
+import Mask from "./dataVisualization/MaskInSvg";
+import DataVisualization from "./dataVisualization";
 
-function App() {
+const App = () => {
+  const { logout } = useUserContext();
   return (
     <Router>
       <div class={styles.App}>
         <header class={styles.header}>
-          <div>
-            Edit <code>src/App.jsx</code> and save to reload.
-          </div>
-          <a
+          {/* <a
             class={styles.link}
             href="https://github.com/solidjs/solid"
             target="_blank"
             rel="noopener noreferrer"
           >
             Learn Solid
-          </a>
+          </a> */}
           <A class={styles.link} href="/">
             Home
           </A>
@@ -34,6 +35,17 @@ function App() {
           <A class={styles.link} href="/Grid">
             Grid
           </A>
+          <A class={styles.link} href="/data-visualization-d3">
+            D3
+          </A>
+          <a
+            onClick={logout}
+            href=""
+            class={styles.link}
+            rel="noopener noreferrer"
+          >
+            Logout
+          </a>
         </header>
 
         <Routes>
@@ -41,10 +53,17 @@ function App() {
           <Route path="/about" component={About} />
           <Route path="/contact" component={Contact} />
           <Route path="/grid" component={Grid} />
+          <Route path="/data-visualization-d3" component={DataVisualization} />
         </Routes>
       </div>
     </Router>
   );
-}
+};
 
-export default App;
+const AppWithContext = () => (
+  <UserContextProvider>
+    <App />
+  </UserContextProvider>
+);
+
+export default AppWithContext;
