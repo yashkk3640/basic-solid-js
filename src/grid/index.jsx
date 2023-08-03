@@ -5,17 +5,49 @@
 // join_date
 // age
 import axios from "axios";
-import { createResource, createSignal } from "solid-js";
+import { createMemo, createResource, createSignal } from "solid-js";
 import { REST_SERVER } from "../constants";
 
+const INIT_DATA = [
+  {
+    username: "yash",
+    password: "12",
+    expiry_date: "31-12-2039",
+    hobby: "chess,cricket",
+    join_date: "01-11-2012",
+    age: 20,
+  },
+  {
+    username: "admin",
+    password: "222",
+    expiry_date: "01-12-2029",
+    join_date: "01-11-2010",
+  },
+  { username: "foo", password: "foo", expiry_date: "12-03-2023" },
+];
 const GridContainer = () => {
   const [newEmpInfo, setNewEmpInfo] = createSignal({});
+  const [sort, setSort] = createSignal({ sortBy: "", isAsc: true });
   const getEmployees = () =>
     axios.get(REST_SERVER + "employees").then((res) => res.data);
 
   const [data, { mutate, refetch }] = createResource(getEmployees);
 
   console.log({ data: data.loading, mutate, refetch });
+
+  const sortedData = createMemo(() => {
+    const { sortBy, order } = sort();
+    if (!sortBy.trim()) {
+      console.log("if", { sortBy, order });
+      return data() || INIT_DATA;
+    } else {
+      console.log("else", { sortBy, order });
+      const multiplier = order === "asc" ? 1 : -1;
+      return (data() || INIT_DATA).sort(
+        (d1, d2) => d1[sortBy].localeCompare(d2[sortBy]) * multiplier
+      );
+    }
+  });
 
   return (
     <div>
@@ -77,10 +109,40 @@ const GridContainer = () => {
       <table class="my-2 table table-striped table-hover table-bordered">
         <thead>
           <tr>
-            <th scope="col" class="cursor-pointer">
+            <th
+              scope="col"
+              class="cursor-pointer"
+              onClick={() => {
+                console.log(sort());
+                setSort((s) => ({
+                  sortBy: "username",
+                  order: s.sortBy === "username" ? "desc" : "asc",
+                }));
+                // mutate([
+                //   ...data().sort((d1, d2) =>
+                //     d1.password.localeCompare(d2.password)
+                //   ),
+                // ]);
+              }}
+            >
               Username
             </th>
-            <th scope="col">Password</th>
+            <th
+              scope="col"
+              onClick={() => {
+                setSort((s) => ({
+                  sortBy: "password",
+                  order: s.sortBy === "password" ? "desc" : "asc",
+                }));
+                // mutate([
+                //   ...data().sort((d1, d2) =>
+                //     d1.password.localeCompare(d2.password)
+                //   ),
+                // ]);
+              }}
+            >
+              Password
+            </th>
             <th scope="col">Expiry Date</th>
             <th scope="col">Hobby</th>
             <th scope="col">Join Date</th>
@@ -88,7 +150,7 @@ const GridContainer = () => {
           </tr>
         </thead>
         <tbody>
-          {data()?.map((d) => (
+          {sortedData()?.map((d) => (
             <tr>
               <td scope="row">{d.username}</td>
               <td scope="row">{d.password}</td>
