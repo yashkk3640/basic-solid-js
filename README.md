@@ -32,9 +32,11 @@ Your app is ready to be deployed!
 ## Deployment
 
 You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
+instead of dist using `docs` folder in that html file should have `assets` directly don't need `/`
 
 ## Data Visualization
 
 First Started how SVG works to make circle line rectangles
 And then tried to create some visualization using D3 library
 [Data Visualization youtube video](https://www.youtube.com/watch?v=xkBheRZTkaw&ab_channel=freeCodeCamp.org)
+[Data Visualization Example at](https://vizhub.com/forum/t/get-it-right-in-black-white-index/110)

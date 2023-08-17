@@ -16,11 +16,11 @@ const Contact = () => {
     axios(DJANGO_SERVER + "playground/teams", {
       method: "get",
       // mode: "no-cors",
-      headers: {
-        "Access-Control-Allow-Origin": "http://localhost:3000",
-        // Origin: "http://localhost:3000",
-        // Referer: "http://localhost:3000/",
-      },
+      // headers: {
+      //   // "Access-Control-Allow-Headers": "http://localhost:3000",
+      //   // Origin: "http://localhost:3000",
+      //   // Referer: "http://localhost:3000/",
+      // },
     }).then((res) => res.data);
 
   const createTeams = () =>
@@ -31,22 +31,22 @@ const Contact = () => {
 
   const [data, { mutate, refetch }] = createResource(getTeams);
 
-  fetch("http://localhost:8000/playground/teams", {
-    method: "get",
-    mode: "no-cors",
-    headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3000",
-      // Origin: "http://localhost:3000",
-      // Referer: "http://localhost:3000/",
-    },
-  })
-    .then((r) => console.log({ data: r.data }))
-    .catch((e) => console.log({ e }));
+  // fetch("http://localhost:8000/playground/teams", {
+  //   method: "get",
+  //   mode: "no-cors",
+  //   headers: {
+  //     "Access-Control-Allow-Origin": "http://localhost:3000",
+  //     // Origin: "http://localhost:3000",
+  //     // Referer: "http://localhost:3000/",
+  //   },
+  // })
+  //   .then((r) => console.log({ data: r.data }))
+  //   .catch((e) => console.log({ e }));
 
-  console.log(data());
   return (
     <div>
       <div class="fs-2 fw-medium">Contact</div>
+      <div>{data()}</div>
       <div class="mx-3 py-2 text-center border border-secondary-subtle">
         {newTeam() && (
           <div class="row justify-content-center col-7 mx-auto">
